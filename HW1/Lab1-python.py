@@ -114,7 +114,7 @@ class SwearJar():
 			print()
 
 		perc = self.total_swear / self.total_words * 100
-		print(f"That is {perc}% profanity")
+		print(f"That is {perc: 0.2f}% profanity")
 
 	def Soap(self):
 		self.__init__()
@@ -126,10 +126,3 @@ a = SwearJar()
 a.say(sentence)
 a.reportCard()
 a.Soap()
-
-
-
-
-
-
-
