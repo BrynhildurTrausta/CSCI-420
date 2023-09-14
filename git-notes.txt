@@ -1,0 +1,17 @@
+How to use the terminal to upload to GitHub:
+
+mkdir = Makes a new folder
+touch = makes a new file
+subl = opens a file with sublime text
+
+Pushing new/edited files:
+	git add .
+	git commit -m "Enter your comment here"
+	git push origin main 
+		(if the repository is in another branch, replace "main with the name of it")
+
+Updating Finder after changing/adding on GitHub:
+	Go to the repository
+	fetch origin
+	merge origin/main
+		(if the repository is in another branch, replace "main with the name of it")
