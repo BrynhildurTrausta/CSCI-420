@@ -1,5 +1,9 @@
 How to use the terminal to upload to GitHub:
 
+Make sure to have installed git on your computer
+Install Homebrew
+Install Sublime Text
+
 mkdir = Makes a new folder
 touch = makes a new file
 subl = opens a file with sublime text
@@ -15,3 +19,6 @@ Updating Finder after changing/adding on GitHub:
 	fetch origin
 	merge origin/main
 		(if the repository is in another branch, replace "main with the name of it")
+
+Clone the GitHub Repository (Open a repository from GitHub onto your finder as a new folder)
+	git clone https://github.com/BrynhildurTrausta/repositoryname
