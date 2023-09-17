@@ -1,3 +1,9 @@
+'''
+	Name: Brynhildur Traustadottir
+	Date: 09/17/23
+	Desc: Press the mouse as fast as you can as it moves every 2 seconds.
+'''
+
 from tkinter import *
 from tkinter import PhotoImage
 from PIL import Image, ImageTk

@@ -1,3 +1,9 @@
+'''
+	Name: Brynhildur Traustadottir
+	Date: 09/17/23
+	Desc: Click a button that moves every time it gets clicked
+'''
+
 from tkinter import *
 from tkinter import PhotoImage
 from PIL import Image, ImageTk
@@ -47,7 +53,8 @@ def buttonClicked(event = None):
 image = Image.open("mouse.png")
 size = (50, 50)
 new_image = image.resize(size)
-new_image.save("mouse.gif", "GIF")image = PhotoImage(file="mouse.gif")
+new_image.save("mouse.gif", "GIF")
+image = PhotoImage(file="mouse.gif")
 
 btn = Button(master, image = image, text = "", command = moving)
 btn.after(50, lambda: moving())
@@ -60,7 +67,7 @@ mainloop()
 y = 0
 for x in react_dict.keys():
 	y += react_dict[x]
-	print(f"{x}: {react_dict[x]:0.2f}", end = '')
+	print(f"{x + 1}: {react_dict[x]:0.2f}", end = '')
 	print()
 
 reac_time = y/a
