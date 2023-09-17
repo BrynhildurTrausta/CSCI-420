@@ -3,16 +3,20 @@ How to use the terminal to upload to GitHub:
 Make sure to have installed git on your computer
 Install Homebrew
 Install Sublime Text
+Make a 
 
 mkdir = Makes a new folder
 touch = makes a new file
 subl = opens a file with sublime text
 
 Pushing new/edited files:
+	navigate to your directory
+	git status 
+		(see what changes have been made to you project)
 	git add .
 	git commit -m "Enter your comment here"
 	git push origin main 
-		(if the repository is in another branch, replace "main with the name of it")
+		(replace main with your branch name) 
 
 Updating Finder after changing/adding on GitHub:
 	Go to the repository
