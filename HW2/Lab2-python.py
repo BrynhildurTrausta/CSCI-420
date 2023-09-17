@@ -32,13 +32,14 @@ def moving(enter = None):
 	i = random.randrange(0, 367)
 	j = random.randrange(0, 367)
 	btn.place(x = i, y = j)
+	btn.after(2000, moving)
 	clk_time = time.time()
 
 # Function for the reaction time of the button
 def buttonClicked(event = None):
 	global clk_time, a
 	elapsed = time.time() - clk_time
-#	print(f"Reaction Time: {elapsed:0.2f}")
+	#print(f"Reaction Time: {elapsed:0.2f}")
 	react_dict[a] = elapsed
 	a += 1
 
@@ -47,10 +48,11 @@ def buttonClicked(event = None):
 image = Image.open("mouse.png")
 size = (50, 50)
 new_image = image.resize(size)
-new_image.save("mouse.gif", "GIF")image = PhotoImage(file="mouse.gif")
+new_image.save("mouse.gif", "GIF")
+image = PhotoImage(file="mouse.gif")
 
-btn = Button(master, image = image, text = "", command = moving)
-btn.after(50, lambda: moving())
+btn = Button(master, image = image, text = "")
+btn.after(2, moving)
 btn.bind('<Button>', buttonClicked)
 
 
@@ -60,7 +62,7 @@ mainloop()
 y = 0
 for x in react_dict.keys():
 	y += react_dict[x]
-	print(f"{x}: {react_dict[x]:0.2f}", end = '')
+	print(f"{x + 1}: {react_dict[x]:0.2f}", end = '')
 	print()
 
 reac_time = y/a
