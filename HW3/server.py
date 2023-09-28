@@ -1,6 +1,8 @@
-# Sept 21, 2023
-# Demo for UDP messages - server
-# with room functionality 
+'''
+	Name: Brynhildur Traustadottir
+	Date: 09/27/23
+	Desc: Terminal UDP Chat System - The Server
+'''
 
 import socket
 
