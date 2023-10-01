@@ -11,12 +11,12 @@ listen_port = 5555 # anything over 1024
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.bind( ('0.0.0.0', listen_port) )
 
-clients = set()
+clients = {}
 
 while True:
 	print("Waiting for message...")
 	(msg, addr) = s.recvfrom(1024)
-	clients.add(addr)
+	clients[addr] = clients.get(addr, f'User{len(clients) + 1}')
 	print(clients)
 
 	msg = msg.decode('UTF-8')

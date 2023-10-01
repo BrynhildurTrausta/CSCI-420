@@ -14,8 +14,7 @@ sock_ready = False
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 def listenThread():
-	global s
-	global sock_ready
+	global s, sock_ready
 	while not sock_ready:
 		time.sleep(0.1)
 	while True:
@@ -23,7 +22,15 @@ def listenThread():
 		msg = msg.decode('UTF-8')
 		print(msg)
 
+def setName():
+	global sock_ready
+	name = input("Please enter your name: ")
+	sock_ready = True
+	return name
+
 thread = threading.Thread(target=listenThread).start()
+
+username = setName()
 
 while True:
 	message = input("Enter a message: ")
