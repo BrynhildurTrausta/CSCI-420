@@ -5,6 +5,7 @@
 '''
 
 import socket
+from datetime import datetime
 
 listen_port = 5555 # anything over 1024
 
@@ -16,11 +17,21 @@ clients = {}
 while True:
 	print("Waiting for message...")
 	(msg, addr) = s.recvfrom(1024)
-	clients[addr] = clients.get(addr, f'User{len(clients) + 1}')
+	msg = msg.decode('UTF-8')
+
+	if msg.startswith('/Name '):
+		Name = msg.split(" ", 1)[1]
+		clients[addr] = clients.get(addr, f'{Name}')
+		print(clients)
+		continue
+
+	clients[addr] = clients.get(addr, f'{Name}')
 	print(clients)
 
-	msg = msg.decode('UTF-8')
-	print(f"{addr}: {msg}")
+	now = datetime.now()
+	currentTime = now.strftime("%H:%M:%S")
+
+	print(f"At {currentTime} {addr} said: {msg}")
 
 	msg = f'{addr}: {msg.lower()}'
 

@@ -32,6 +32,8 @@ thread = threading.Thread(target=listenThread).start()
 
 username = setName()
 
+s.sendto(f"/Name {username}".encode('UTF-8'), (ip_server, port) ) 
+
 while True:
 	message = input("Enter a message: ")
 
