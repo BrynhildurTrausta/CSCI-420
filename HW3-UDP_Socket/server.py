@@ -10,7 +10,6 @@ import socket
 from datetime import datetime
 
 listen_port = 5555 # anything over 1024
-
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.bind( ('0.0.0.0', listen_port) )
 
@@ -27,9 +26,24 @@ while True:
 	# That name will be the value to the key in the dictionary
 	# Which is the Ip address and the port number
 	if msg.startswith('/Name '):
-		name = msg.split(" ", 1)[1]
+		#name = msg.split(" ", 1)[1]
+		name = msg[6:]
 		clients[addr] = name
-		print(clients)
+		print(f"New User: {name}")
+		continue
+
+	# Getting the names of all users in the dictionary
+	if msg == "Users?":
+		msg = ''
+		for ad in clients.keys():
+			msg += clients[ad] + ", "
+		s.sendto(msg.encode('UTF-8'), addr )
+		continue
+
+	# Getting the number of users that is in the dictionary
+	if msg == "NumUsers?":
+		msg = f"Number of users: {len(clients)}"
+		s.sendto(msg.encode('UTF-8'), addr )
 		continue
 
 	# Getting the correct name that matches the ip address
@@ -39,12 +53,13 @@ while True:
 	# Getting the real time in military time
 	now = datetime.now()
 	currentTime = now.strftime("%H:%M:%S")
+	print(f"From {sender_name} at {currentTime}: {msg}")
 
-	print(f"At {currentTime} {addr} ({sender_name}) said: {msg}")
-
-	msg = f'{addr}: {msg.lower()}'
+	msg = f'{msg.lower()}'
 
 	# sending the messages and the name of the sender to all clients
 	for c in clients:
-		s.sendto(f"From {sender_name}: {msg}".encode('UTF-8'), c )
+		if c == addr:
+			continue
+		s.sendto(f"From {sender_name} at {currentTime}: {msg}".encode('UTF-8'), c )
 
