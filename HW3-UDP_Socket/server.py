@@ -21,10 +21,7 @@ while True:
 	(msg, addr) = s.recvfrom(1024)
 	msg = msg.decode('UTF-8')
 
-	# If the message starts with /Name, the client had submitted
-	# His name as the first message
-	# That name will be the value to the key in the dictionary
-	# Which is the Ip address and the port number
+	# Matching a name to the address
 	if msg.startswith('/Name '):
 		#name = msg.split(" ", 1)[1]
 		name = msg[6:]
@@ -32,25 +29,49 @@ while True:
 		print(f"New User: {name}")
 		continue
 
-	# Getting the names of all users in the dictionary
-	if msg == "Users?":
-		msg = ''
-		for ad in clients.keys():
-			msg += clients[ad] + ", "
-		s.sendto(msg.encode('UTF-8'), addr )
+	# Getting all options of the special messages
+	if msg.lower() == "options?":
+		s.sendto("/options".encode('UTF-8'), addr )
 		continue
 
 	# Getting the number of users that is in the dictionary
-	if msg == "NumUsers?":
+	if msg.lower() == "numusers?":
 		msg = f"Number of users: {len(clients)}"
 		s.sendto(msg.encode('UTF-8'), addr )
 		continue
 
-	# Getting the correct name that matches the ip address
+	# Getting the names of all users in the dictionary
+	if msg.lower() == "users?":
+		msg = ''
+		for ad in clients.keys():
+			msg += clients[ad] + ", "
+		s.sendto(f"Users: {msg}".encode('UTF-8'), addr )
+		continue
+
+	# Sending private messages to a specific client
+	if "->" in msg:
+		(msg, receiver) = msg.split("->")
+		rec_add = None
+		print(f"Private to {receiver}: {msg}")
+		for a in clients.keys(): # Check if desired receiver
+			if clients[a] == receiver:
+				rec_add = a
+		if rec_add:
+			msg = f"Private messgae from {clients[addr]}: {msg}"
+			s.sendto(msg.encode('UTF-8'), rec_add )
+		else:
+			msg0 = f"{receiver} is not in user list!"
+			s.sendto(msg0.encode('UTF-8'), addr )
+		continue
+
+
+	# Sending the message to clients
+
+	# Getting the senders name
 	sender_name = clients.get(addr, 'Unknown')
 	print(clients)
 
-	# Getting the real time in military time
+	# Getting the real time in military time for the message
 	now = datetime.now()
 	currentTime = now.strftime("%H:%M:%S")
 	print(f"From {sender_name} at {currentTime}: {msg}")

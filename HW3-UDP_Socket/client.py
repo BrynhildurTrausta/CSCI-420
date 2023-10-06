@@ -24,6 +24,22 @@ def listenThread():
 	while True:
 		(msg, addr) = s.recvfrom(1024)
 		msg = msg.decode('UTF-8')
+
+		# Getting all options of the special messages
+		if msg.startswith("/options"):
+			option = input("Pick an option:\n1: Get the number of clients\n2: Get the name of all clients\n3: Send a private message to a specific client\n")
+			if "1" in option:
+				msg = "numusers?"
+			elif "2" in option:
+				msg = "users?"
+			elif "3" in option:
+				name = input("Enter the name of the receiver: ")
+				message = input("Ender the desired message: ")
+				msg = f"{message}->{name}"
+			else:
+				pass
+			s.sendto(msg.encode('UTF-8'), (ip_server, port) )
+			continue
 		print(msg)
 
 # Asks the client for its name
