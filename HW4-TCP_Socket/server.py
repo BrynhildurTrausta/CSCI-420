@@ -1,7 +1,7 @@
 # Demo for TCP - Server
 # Can handle multiple clients at a time due to threading
 
-import socket, threading
+import socket, threading, pickle
 
 
 port = 5555
@@ -14,8 +14,8 @@ def TCPWorker(sockets, client_socket):
 			msg = client_socket.recv(1024)
 			if len(msg) == 0:
 				break # after this loop it starts waiting for more clients
-			print(msg.decode("ASCII"))
-			client_socket.sendall("OK".encode("ASCII"))
+			#print(msg.decode("ASCII"))
+			#client_socket.sendall("OK".encode("ASCII"))
 			for c in sockets:
 				if c != client_socket:
 					c.sendall(msg)
