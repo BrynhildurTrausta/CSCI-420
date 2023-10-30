@@ -6,12 +6,17 @@
 				and print messages from the server
 			- Client sends message through GUI
 			- User sets their name and it displays to everyone
+			- Includes time it was sent to the user
 '''
 
 import socket, threading, sys, pickle
 from tkinter import *
+from datetime import datetime
+
 
 name = input("Please insert your name: ")
+now = datetime.now()
+currentTime = now.strftime("%H:%M:%S")
 
 # Function sends message from GUI to all clients
 def send_msg(event=None):
@@ -19,7 +24,7 @@ def send_msg(event=None):
 	msg = new_msg.get()
 	new_msg.delete(0, END)
 	sent_count += 1
-	message = pickle.dumps({'Name': name, 'Message': msg, 'Count': sent_count})
+	message = pickle.dumps({name: {'Time': currentTime, 'Message': msg, 'Count': sent_count} })
 	s.sendall(message)
 
 # Makes the GUI
@@ -33,6 +38,7 @@ box.pack(fill=BOTH, expand=True)
 new_msg = Entry(master) # For typing messages
 new_msg.pack(fill=X)
 
+# Starts the TCP
 server_ip = "127.0.0.1"
 port = 5555
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -59,9 +65,6 @@ new_msg.bind('<Return>', send_msg)
 
 while True:
 	message = input("What to send? ")
-#	sent_count += 1
-#	msg = pickle.dumps({'msg': message, 'Count': sent_count}) # dumps returns the pickle representation object as a bytes object
-#	s.sendall(msg) 
 
 
 s.close() # Closes the connection to the server, inverse of s.connect()
