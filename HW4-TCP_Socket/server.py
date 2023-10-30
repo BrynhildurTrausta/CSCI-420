@@ -1,3 +1,8 @@
+'''
+	Name: Brynhildur Traustadottir
+	Date: 10/29/2023
+	Desc: TCP Demo - Server
+'''
 # Demo for TCP - Server
 # Can handle multiple clients at a time due to threading
 
@@ -12,10 +17,14 @@ def TCPWorker(sockets, client_socket):
 		try:
 			
 			msg = client_socket.recv(1024)
+			#decoded = pickle.loads(msg)
 			if len(msg) == 0:
 				break # after this loop it starts waiting for more clients
 			#print(msg.decode("ASCII"))
 			#client_socket.sendall("OK".encode("ASCII"))
+			#if decoded.startswith("/name"):
+			#	name = decoded[5:]
+			#	print(f"New User: {name}")
 			for c in sockets:
 				if c != client_socket:
 					c.sendall(msg)
@@ -39,3 +48,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 		sockets.append(client_socket)
 		threading.Thread(target=TCPWorker, args = [sockets, client_socket]).start()
 	s.close() # inverse of s.connect()
+
+
+
