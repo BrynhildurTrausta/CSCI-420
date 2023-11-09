@@ -26,3 +26,42 @@ Updating Finder after changing/adding on GitHub:
 
 Clone the GitHub Repository (Open a repository from GitHub onto your finder as a new folder)
 	git clone https://github.com/BrynhildurTrausta/repositoryname
+
+
+
+Extra things using the command line:
+	ls -la = shows how many bytes each item in that folder has and when it 		was made
+	cat filename = prints the text file on the screen on the terminal
+	sudo = does the next command as the administrated
+	yum = package manager
+	systemctl = system that manages the services on the machine
+	scp = secure copy
+	vim filename = is a text editor
+	wget = command line program to download things through http
+	
+
+Using AWS:
+
+	Making a key-pair:
+		ssh-keygen = Generates a new SSH key par which is a public and 		private rsa key pair
+		cd ~/.ssh = goes into that directory (~ goes into a directory)
+		cat id_rsa.pub = prints the key pair in text on the screen.
+			Next step is to copy that text, go to aws, import key pair and paste it
+
+
+	After making an instance on AWS, copy the IP address and go to terminal and say ssh ec2-user@ipaddress (ssh ec2-user@18.234.72.125). Then you are connected to the instance
+	To go in it you say vim index.html. Then you are in the file
+	i = insert
+	esc = gets out of the insert
+	:wq = saves and quit (:qq = does not save, only quits)
+	cat index.html
+	sudo yum install httpd = installs everything you need to open it up
+	sudo systemctl start httpd.service
+	sudo systemctl status httpd.service (press q to get back to the command line)
+	Now go to chrome and make a new tab and paste your ip address. You should see the auto web page made from aws
+	Sudo cp index.html	/var/www/html/ = copies the file into the web page with the ip address (into the web server).
+	Now you should see the html page you made in index.
+
+	Tip: Make a file in your home directory then copy it to your desired loation
+
+	scp ec2-user@18.234.72.125:~/index.html .
