@@ -28,6 +28,43 @@ Clone the GitHub Repository (Open a repository from GitHub onto your finder as a
 	git clone https://github.com/BrynhildurTrausta/repositoryname
 
 
+Using AWS:
+
+	Making a key-pair:
+		ssh-keygen = Generates a new SSH key par which is a public and 		private rsa key pair
+		cd ~/.ssh = goes into that directory (~ goes into a directory)
+		cat id_rsa.pub = prints the key pair in text on the screen.
+			Next step is to copy that text, go to aws, import key pair and paste it
+
+
+
+Using VIM to make a html/php file in terminal:
+	
+	Tip: Make a file in your home directory then copy it to your desired loation
+
+	Make an instance on ec2
+	Connect to it through terminal
+		ssh ec2-user@18.234.72.125 = connects the instance
+	Install the httpd
+		sudo yum install httpd = installs everything you need
+	Start the service 
+		sudo systmectl start html.service
+	Check the status 
+		sudo systmectl statsus html.service
+	Go in the correct directory
+		pwd = sees what directory you are in
+		ls /var/www/html/ = sees what files are in that directory
+		sudo vim /var/www/html/index.php = opens up a file in a text editor
+	Using vim
+		i = insert
+		esc = escapes the insert
+		:w = writes/saves the file
+		:wq = saves and quits
+		:qq = quits but doesn't save
+	Download the file to another directory
+		cp /var/www/html/index.php . = copies the file to the clipboard. (the . indicates that all files in the chosen directory)
+		scp ec2-user@3.95.151.195:~/index.php . = secure copy from the written directory to (the dot) current directory. (The normal user)
+
 
 Extra things using the command line:
 	ls -la = shows how many bytes each item in that folder has and when it 		was made
@@ -38,30 +75,12 @@ Extra things using the command line:
 	scp = secure copy
 	vim filename = is a text editor
 	wget = command line program to download things through http
+	yum search php = seeing what php to download
+	yum search php | grep apache
+	sudo yum install php
+	ab (name of website) = see how much your webpage takes up
+	ab -n 10 -c 2 (name of webpage) = -n how many times, -c how many clients at one time. Shows more information about percentage of requests serverd within a certain time. n >= c
 	
 
-Using AWS:
-
-	Making a key-pair:
-		ssh-keygen = Generates a new SSH key par which is a public and 		private rsa key pair
-		cd ~/.ssh = goes into that directory (~ goes into a directory)
-		cat id_rsa.pub = prints the key pair in text on the screen.
-			Next step is to copy that text, go to aws, import key pair and paste it
 
 
-	After making an instance on AWS, copy the IP address and go to terminal and say ssh ec2-user@ipaddress (ssh ec2-user@18.234.72.125). Then you are connected to the instance
-	To go in it you say vim index.html. Then you are in the file
-	i = insert
-	esc = gets out of the insert
-	:wq = saves and quit (:qq = does not save, only quits)
-	cat index.html
-	sudo yum install httpd = installs everything you need to open it up
-	sudo systemctl start httpd.service
-	sudo systemctl status httpd.service (press q to get back to the command line)
-	Now go to chrome and make a new tab and paste your ip address. You should see the auto web page made from aws
-	Sudo cp index.html	/var/www/html/ = copies the file into the web page with the ip address (into the web server).
-	Now you should see the html page you made in index.
-
-	Tip: Make a file in your home directory then copy it to your desired loation
-
-	scp ec2-user@18.234.72.125:~/index.html .
